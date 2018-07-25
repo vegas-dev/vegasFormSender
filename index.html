@@ -82,6 +82,9 @@
 		$('form').vegasFormSender({
 			success: function (data) {
 				alert(data.message)
+			},
+			error: function (status) {
+				alert(status)
 			}
 		});
 	});
