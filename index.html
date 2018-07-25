@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vegas Form Sender</title>
+
+	<meta name="description" content="Simplified sending of data to the server. By vegas s" />
+	<meta name="author" content="vegas s" />
+	<meta name="viewport" content="width=device-width, maximum-scale=0.8, initial-scale=0.6" />
+
+	<!-- Bootstrap 4.1.2 -->
+	<link rel="stylesheet"
+		  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+		  integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+		  crossorigin="anonymous">
+
+</head>
+<body>
+<!-- Some form -->
+<div class="container mt-5 pt-5">
+	<form action="php/send.php" method="post" enctype="multipart/form-data">
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputEmail4">Email</label>
+				<input type="email" name="email" class="form-control" id="inputEmail4" placeholder="Email">
+			</div>
+			<div class="form-group col-md-6">
+				<label for="inputPassword4">Password</label>
+				<input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputAddress">Address</label>
+			<input type="text" name="address" class="form-control" id="inputAddress" placeholder="1234 Main St">
+		</div>
+		<div class="form-group">
+			<label for="inputAddress2">Address 2</label>
+			<input type="text" name="address2" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputCity">City</label>
+				<input type="text" name="city" class="form-control" id="inputCity">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputState">State</label>
+				<select id="inputState"  name="state" class="form-control">
+					<option selected>Choose...</option>
+					<option>...</option>
+				</select>
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputZip">Zip</label>
+				<input type="text"  name="zip" class="form-control" id="inputZip">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputFile">File</label>
+			<input type="file"  name="file" class="form-control" id="inputFile">
+		</div>
+		<div class="form-group">
+			<div class="form-check">
+				<input class="form-check-input"  name="form-check-label" type="checkbox" id="gridCheck">
+				<label class="form-check-label" for="gridCheck">
+					Check me out
+				</label>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Sign in</button>
+	</form>
+</div>
+
+<!-- JQuery 3.3.1 -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<!-- VegasFormSender -->
+<script src="dist/jquery.vegasFormSender.min.js"></script>
+
+<!-- Init -->
+<script>
+	$(document).ready(function () {
+		$('form').vegasFormSender({
+			success: function (data) {
+				alert(data.message)
+			}
+		});
+	});
+</script>
+
+</body>
+</html>
