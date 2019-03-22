@@ -37,7 +37,8 @@
 
 		var options = $.extend({
 			error: function() {},
-			success: function() {}
+			success: function() {},
+			beforeSend: function() {}
 		}, arguments[0] || {});
 
 		var form = this,
@@ -47,9 +48,9 @@
 			redirectSuccess = options.redirectSuccess || form.data('redirect-success') || false,
 			redirectError = options.redirectError  || form.data('redirect-error') || false;
 
-			if (fields && typeof fields == 'function') {
-				fields = options.fields();
-			}
+		if (fields && typeof fields == 'function') {
+			fields = options.fields();
+		}
 
 		form.on('submit', function () {
 
@@ -68,41 +69,41 @@
 				cache: false,
 				contentType: false,
 				processData: false,
+				beforeSend: function() {
+					options.beforeSend.call(this, form);
+				},
 				success: function (data) {
-					var obj = $.parseJSON(data);
-
 					if (redirectSuccess) {
 						window.location.href = redirectSuccess;
 					}
-
-					options.success.call(this, obj);
+					options.success.call(this, data, form);
 				},
 				error: function (jqXHR, exception) {
 					var status = '';
 
 					if (jqXHR.status === 0) {
-						msg = 'Not connect.\n Verify Network.';
+						status = 'Not connect.\n Verify Network.';
 					} else if (jqXHR.status == 404) {
-						msg = 'Requested page not found. [404]';
+						status = 'Requested page not found. [404]';
 					}  else if (jqXHR.status == 405) {
-						msg = 'Method Not Allowed. [405]';
+						status = 'Method Not Allowed. [405]';
 					} else if (jqXHR.status == 500) {
-						msg = 'Internal Server Error [500].';
+						status = 'Internal Server Error [500].';
 					} else if (exception === 'parsererror') {
-						msg = 'Requested JSON parse failed.';
+						status = 'Requested JSON parse failed.';
 					} else if (exception === 'timeout') {
-						msg = 'Time out error.';
+						status = 'Time out error.';
 					} else if (exception === 'abort') {
-						msg = 'Ajax request aborted.';
+						status = 'Ajax request aborted.';
 					} else {
-						msg = 'Uncaught Error.\n' + jqXHR.responseText;
+						status = 'Uncaught Error.\n' + jqXHR.responseText;
 					}
 
 					if (redirectError) {
 						window.location.href = redirectError;
 					}
 
-					options.error.call(this, status);
+					options.error.call(this, status, form);
 				}
 			});
 
