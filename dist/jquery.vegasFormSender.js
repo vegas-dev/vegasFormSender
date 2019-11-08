@@ -2,7 +2,7 @@
  * @name vegas form sender
  * @copyright by vegas s.
  * @date: 23.07.2018
- * @version  1.0
+ * @version  1.2
  *
  * Описание.
  * Программа для сборки данных с формы и отправки их на сервер через ajax,
