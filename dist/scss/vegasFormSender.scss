@@ -1,0 +1,161 @@
+/** Base modal tmpl for bootstrap **/
+.vg-form-sender-modal {
+  .modal-dialog {
+	margin: 5.75rem auto;
+ 
+	.modal-content {
+	  border-radius: 0;
+	  box-shadow: none;
+	  border: none;
+	  position: relative;
+	  padding: 45px;
+	
+	  .modal-close {
+		position: absolute;
+		right: -45px;
+		top: -45px;
+		opacity: .9;
+		background: transparent;
+		border: none;
+		font-size: 18px;
+		cursor: pointer;
+		transition: transform .8s ease-in-out;
+		
+		svg {
+		  width: 25px;
+		}
+		
+		&.white {
+		  svg {
+			polygon {
+			  fill: white !important;
+			}
+		  }
+		}
+		
+		&:hover {
+		  transform: rotate(360deg);
+		}
+	  }
+	  
+	  .modal-footer, .modal-header {
+		border: none;
+		
+		.btn {
+		  line-height: 1;
+		  text-transform: none;
+		  font-size: 24px;
+		}
+	  }
+	}
+  }
+  
+  .alert {
+	text-align: center;
+	margin: 0;
+	border: none;
+	border-radius: 0;
+	padding: .75rem 1.25rem;
+	
+	.title {
+	  margin-top: 25px;
+	  margin-bottom: 20px;
+	  font-size: 2rem;
+	  font-weight: 900;
+	  text-transform: uppercase;
+	}
+	
+	&-error {
+	  .title {
+		color: #b33232;
+	  }
+	}
+ 
+	&-success {
+	  background: transparent;
+	  border: none;
+	  
+	  .title {
+		color: #218011;
+	  }
+	}
+  }
+}
+
+/** SVG animation **/
+svg {
+  &.am_Success_Icon, &.am_Error_Icon {
+	width: 160px;
+	margin: auto auto;
+	
+	path, polyline, line {
+	  fill: none;
+	  stroke-width: 15;
+	  stroke-linecap: round;
+	  stroke-linejoin: round;
+	}
+	
+	.am_SVG_circle {
+	  stroke-dasharray: 1460;
+	  animation: am_SVG_circle 2s ease-in ;
+	}
+  }
+  
+  &.am_Success_Icon {
+	.am_SVG_check {
+	  stroke-dasharray: 630;
+	  animation: am_SVG_check 2s ease-in ;
+	}
+	
+	path, polyline, line {
+	  stroke: #218011;
+	}
+  }
+  
+  &.am_Error_Icon {
+	.am_SVG_error1{
+	  stroke-dasharray: 630;
+	  animation: am_SVG_error1 2s ease-in ;
+	}
+	.am_SVG_error2{
+	  stroke-dasharray: 630;
+	  animation: am_SVG_error2 3s ease-in ;
+	}
+	path, polyline, line {
+	  stroke: #b33232;
+	}
+  }
+}
+
+@keyframes am_SVG_circle {
+  0%, 60% {
+	stroke-dashoffset: -1460;
+  }
+  100% {
+	stroke-dashoffset: 0;
+  }
+}
+@keyframes am_SVG_check {
+  0% {
+	stroke-dashoffset: 630;
+  }
+  40% {
+	stroke-dashoffset: 0;
+  }
+}
+@keyframes am_SVG_error1 {
+  0% {
+	stroke-dashoffset: 630;
+  }
+  20% {
+	stroke-dashoffset: 0;
+  }
+}
+@keyframes am_SVG_error2 {
+  0%, 20% {
+	stroke-dashoffset: 630;
+  }
+  40% {
+	stroke-dashoffset: 0;
+  }
+}

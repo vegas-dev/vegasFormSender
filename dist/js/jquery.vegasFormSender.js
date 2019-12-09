@@ -2,41 +2,41 @@
  * @name vegas form sender
  * @copyright by vegas s.
  * @date: 23.07.2018
- * @version  1.2
+ * @version  1.0
  *
  * Описание.
  * Программа для сборки данных с формы и отправки их на сервер через ajax,
  * упрощая обработку и выдачу результата...
  *
  * Инициализация: $('#какая-то форма').vegasFormSender();
+ *
  */
-
 (function( $ ) {
-	
+
 	$.fn.vegasFormSender = function(options) {
-		
+
 		options = $.extend({
 			error: function() {},
 			success: function() {},
 			beforeSend: function() {},
 			validate: function() {}
 		}, arguments[0] || {});
-		
+
 		let form = this,
 			action = options.action || form.attr('action') || location.href,
 			method = options.method || form.attr('method') || 'get',
 			fields = options.fields  ? options.fields : false,
 			redirectSuccess = options.redirectSuccess || form.data('redirect-success') || false,
 			redirectError = options.redirectError  || form.data('redirect-error') || false;
-		
-		if (fields && typeof fields == 'function') {
-			fields = options.fields();
-		}
-		
-		let valid = true;
-		
-		form.on('submit', function () {
+
+			if (fields && typeof fields == 'function') {
+				fields = options.fields();
+			}
 			
+		let valid = true;
+
+		form.on('submit', function () {
+
 			let data = new FormData(this),
 				$required = $(this).find('[data-validate]');
 			
@@ -47,7 +47,7 @@
 				
 				if (errors.length) valid = false;
 			}
-			
+
 			if (valid) {
 				if (fields) {
 					for(var name in fields) {
@@ -74,16 +74,17 @@
 					},
 					success: function (data) {
 						let obj = data;
-						
+	
 						if (redirectSuccess) {
 							window.location.href = redirectSuccess;
 						}
-						
+	
 						options.success.call(this, obj, form);
 					},
 					error: function (jqXHR, exception) {
-						let msg = '';
-						
+						let status = '',
+							msg = '';
+	
 						if (jqXHR.status === 0) {
 							msg = 'Not connect.\n Verify Network.';
 						} else if (jqXHR.status == 404) {
@@ -103,11 +104,11 @@
 						} else {
 							msg = 'Uncaught Error.\n' + jqXHR.responseText;
 						}
-						
+	
 						if (redirectError) {
 							window.location.href = redirectError;
 						}
-						
+	
 						options.error.call(this, msg, form);
 					}
 				});
@@ -115,7 +116,7 @@
 			
 			return false;
 		});
-		
+
 		function required($elements) {
 			let errors = [];
 			
