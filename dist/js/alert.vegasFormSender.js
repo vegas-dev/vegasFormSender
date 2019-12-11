@@ -45,7 +45,7 @@ window.AlertFormSender = {
 			
 			$modal.modal('show');
 			
-			$btn.attr('disabled', 'false').text($btn.data('text'));
+			$btn.attr('disabled', false).text($btn.data('text'));
 		},
 		error: function (msg, form) {
 			let $btn = form.find('[type=submit]'),
@@ -58,7 +58,7 @@ window.AlertFormSender = {
 			
 			$modal.modal('show');
 			
-			$btn.attr('disabled', 'false').text($btn.data('text'));
+			$btn.attr('disabled', false).text($btn.data('text'));
 		},
 		validate: function (errors) {
 			$.each(errors, function () {
@@ -69,7 +69,7 @@ window.AlertFormSender = {
 		},
 		beforeSend: function (form) {
 			let $btn = form.find('[type=submit]');
-			$btn.attr('disabled', 'true').text($btn.data('text-send'));
+			$btn.attr('disabled', true).text($btn.data('text-send'));
 		}
 	},
 	
