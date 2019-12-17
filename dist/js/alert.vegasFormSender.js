@@ -1,4 +1,13 @@
 window.AlertFormSender = {
+	lang: {
+		ru: {
+			success_title: 'Успешно!',
+			success_msg: 'Ваше письмо успешно отправлено!',
+			error_title: 'Ошибка!',
+			text_send: 'Отправка...',
+			btn_text: 'Отправить',
+		}
+	},
 	Svg: {
 		error: '<svg viewbox="0 0 500 500" class="am_Error_Icon"><path class="am_SVG_circle" d="m444.34693,114.07007a236.95276,236.95276 0 0 1 44.1553,137.73747c0,129.97005 -106.94772,236.96443 -236.91777,236.96443s-236.91777,-106.94772 -236.91777,-236.91777s106.94772,-236.96443 236.91777,-236.96443a236.99941,236.99941 0 0 1 168.72548,70.59483"></path><line class="am_SVG_error1" y2="390" x2="390" y1="110" x1="110"></line><line class="am_SVG_error2" y2="390" x2="110" y1="110" x1="390"></line></svg>',
 		success: '<svg viewbox="0 0 500 500" class="am_Success_Icon"><path class="am_SVG_circle" d="m443.0136,114.07007a236.95276,236.95276 0 0 1 44.1553,137.73747c0,129.97005 -106.94772,236.96443 -236.91777,236.96443s-236.91777,-106.94772 -236.91777,-236.91777s106.94772,-236.96443 236.91777,-236.96443a236.99941,236.99941 0 0 1 168.72548,70.59483"></path><polyline class="am_SVG_check" points="104.4892349243164,309.2001647949219 195.57406616210938,402.9600524902344 418.9292297363281,85.03718566894531 "></polyline></svg>',
@@ -33,24 +42,24 @@ window.AlertFormSender = {
 	
 	Action: {
 		success: function (msg, form) {
-			let $modal = $('#modal-success');
-			let $btn = form.find('[type=submit]'), title;
+			let $modal = $('#modal-success'),
+				$btn = form.find('[type=submit]'), title,
+				btn_text = $btn.data('text') || AlertFormSender.lang.ru.btn_text;
 			
-			msg = msg || $btn.data('success-msg');
-			title = $btn.data('success-text');
+			msg = msg || $btn.data('success-msg') || AlertFormSender.lang.ru.success_msg;
+			title = $btn.data('success-text') || AlertFormSender.lang.ru.success_title;
 			
 			$('.modal').modal('hide');
-			
 			AlertFormSender.text(msg, title, $modal);
-			
 			$modal.modal('show');
 			
-			$btn.attr('disabled', false).text($btn.data('text'));
+			$btn.attr('disabled', false).text(btn_text);
 		},
 		error: function (msg, form) {
 			let $btn = form.find('[type=submit]'),
 				$modal = $('#modal-error'),
-				title = $btn.data('error-text');
+				title = $btn.data('error-text') || AlertFormSender.lang.ru.error_title,
+				btn_text = $btn.data('text') || AlertFormSender.lang.ru.btn_text;
 			
 			$('.modal').modal('hide');
 			
@@ -58,7 +67,7 @@ window.AlertFormSender = {
 			
 			$modal.modal('show');
 			
-			$btn.attr('disabled', false).text($btn.data('text'));
+			$btn.attr('disabled', false).text(btn_text);
 		},
 		validate: function (errors) {
 			$.each(errors, function () {
@@ -68,8 +77,9 @@ window.AlertFormSender = {
 			});
 		},
 		beforeSend: function (form) {
-			let $btn = form.find('[type=submit]');
-			$btn.attr('disabled', true).text($btn.data('text-send'));
+			let $btn = form.find('[type=submit]'),
+				text = $btn.data('text-send') || AlertFormSender.lang.ru.text_send;
+			$btn.attr('disabled', true).text(text);
 		}
 	},
 	
