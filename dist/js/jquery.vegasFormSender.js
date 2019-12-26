@@ -95,9 +95,9 @@
 							
 							if (redirectSuccess) {
 								window.location.href = redirectSuccess;
+							} else {
+								options.success.call(this, obj, form);
 							}
-							
-							options.success.call(this, obj, form);
 						},
 						error: function (jqXHR, exception) {
 							let status = '',
@@ -125,9 +125,9 @@
 							
 							if (redirectError) {
 								window.location.href = redirectError;
+							} else {
+								options.error.call(this, msg, form);
 							}
-							
-							options.error.call(this, msg, form);
 						}
 					});
 				}
