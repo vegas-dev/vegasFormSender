@@ -49,6 +49,8 @@
 					
 					$(this).inputmask(params);
 				});
+			} else if(typeof $.fn.inputmask === 'undefined' || !typeof $.fn.inputmask) {
+				console.error('Plugin InputMask not installed');
 			}
 			
 			let valid = true;
