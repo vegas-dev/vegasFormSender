@@ -18,10 +18,17 @@ $(document).ready(function () {
 
 	$forms.each(function () {
 		var $_form = $(this);
-		var $inputs = $_form.find('input[data-mask]');
+		var $inputs = $_form.find('input'),
+			$mask = $_form.find('input[data-mask]');
+
+		$_form.addClass('vg-form-sender');
+
+		$inputs.each(function () {
+			$(this).parent('div').addClass('vg-form-sender__selector');
+		});
 		
 		if (typeof $.fn.inputmask !== 'undefined') {
-			$inputs.each(function () {
+			$mask.each(function () {
 				var $_self = $(this),
 					type = $_self.data('mask'),
 					inComplete = $_self.data('mask-complete') || false,

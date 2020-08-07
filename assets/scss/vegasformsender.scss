@@ -1,0 +1,25 @@
+.vg-form-sender {
+  &__selector {
+	&.error {
+	  label {
+	  	color: #721c24;
+	  }
+
+	  input {
+		background-color: #f8d7da;
+		border-color: #f5c6cb;
+		box-shadow: #f5c6cb;
+		color: #721c24;
+	 
+		&::placeholder {
+		  color: #721c24;
+		}
+	  }
+	  
+	  p {
+		color: #721c24;
+		font-size: 12px;
+	  }
+	}
+  }
+}

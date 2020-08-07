@@ -1,15 +1,15 @@
 window.ValidateFormSender = {
-	class_error: 'vg-fs-error',
+	error: 'error',
 	arrange: function (errors, form) {
-		form.find('input').parent('div').removeClass(ValidateFormSender.class_error);
+		form.find('.vg-form-sender__selector').removeClass(ValidateFormSender.error);
 		
 		$.each(errors, function (i, arr) {
 			if (arr.length) {
 				$.each(arr, function (n) {
 					var $self = arr[n],
-						$selector = $self.parent('div');
+						$selector = $self.closest('.vg-form-sender__selector');
 
-					$selector.addClass(ValidateFormSender.class_error);
+					$selector.addClass(ValidateFormSender.error);
 				});
 			}
 		});
