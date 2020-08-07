@@ -31,7 +31,7 @@
   "scripts": {
     "clean": "rimraf dist/{css/*,js/*}",
     "scss": "node-sass --output-style compressed -o dist/css assets/scss",
-    "uglify": "mkdirp dist/js -p && uglifyjs assets/js/*.js -m -o dist/js/jquery.vegasFormSender.js && uglifyjs assets/js/*.js -m -c -o dist/js/jquery.vegasFormSender.min.js",
+    "uglify": "mkdirp dist/js -p && uglifyjs assets/js/*.js -m -o dist/js/vegasformsender.js && uglifyjs assets/js/*.js -m -c -o dist/js/vegasformsender.min.js",
     "build:css": "run-s scss",
     "build:js": "run-s uglify",
     "build": "run-s build:*",

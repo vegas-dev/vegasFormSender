@@ -3,14 +3,10 @@
 	$.fn.vegasFormSender = function (options) {
 
 		options = $.extend({
-			error: function () {
-			},
-			success: function () {
-			},
-			beforeSend: function () {
-			},
-			validate: function () {
-			}
+			error: function () {},
+			success: function () {},
+			beforeSend: function () {},
+			validate: function () {}
 		}, arguments[0] || {});
 
 		var $form = this;
@@ -39,7 +35,7 @@
 
 					options.validate.call(this, form, errors);
 
-					if (errors.length) valid = false;
+					if (errors.empty.length || errors.email.length || errors.password.length) valid = false;
 				}
 
 				if (valid) {
@@ -96,17 +92,53 @@
 			});
 
 			function required($elements) {
-				var errors = [];
+				var errors = {
+					'empty': [],
+					'email': [],
+					'password': []
+				};
 
 				$elements.each(function () {
 					var $el = $(this);
 
 					if ($el.val() === '') {
-						errors.push($el);
+						errors.empty.push($el);
+					} else {
+						var type = $el.data('validate');
+						
+						if (type === 'email' && !validateEmail($el.val())) {
+							errors.email.push($el);
+						}
+						
+						if (type === 'password') {
+							errors.password.push($el);
+						}
 					}
 				});
 
+				if (errors.password.length > 1) {
+					var pass_arr = [];
+
+					for (var i = 1; i <= errors.password.length; i++) {
+						var $el = errors.password[i - 1];
+						pass_arr.push($el.val());
+					}
+
+					pass_arr = pass_arr.filter(function(elem, pos,arr) {
+						return arr.indexOf(elem) === pos;
+					});
+
+					if (pass_arr.length === 1) {
+						errors.password = [];
+					}
+				}
+
 				return errors;
+			}
+
+			function validateEmail(email) {
+				var pattern  = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				return pattern .test(String(email).toLowerCase());
 			}
 		});
 

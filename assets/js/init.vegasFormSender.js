@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	var $forms = $('[data-vgFormSender]');
-
+	
 	$forms.vegasFormSender({
 		beforeSend: function (form) {
 			AlertFormSender.Action.beforeSend(form);
