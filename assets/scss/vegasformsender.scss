@@ -1,24 +1,30 @@
+@import "option";
+
 .vg-form-sender {
   &__selector {
 	&.error {
 	  label {
-	  	color: #721c24;
+	  	color: $error_text_color;
 	  }
 
 	  input {
-		background-color: #f8d7da;
-		border-color: #f5c6cb;
-		box-shadow: #f5c6cb;
-		color: #721c24;
+		background-color: $error_bg_color;
+		border-color: $error_border_color;
+		color: $error_text_color;
 	 
 		&::placeholder {
-		  color: #721c24;
+		  color: $error_text_color;
+		}
+		
+		&:active, &:focus {
+		  box-shadow: 0 0 0 0.2rem rgba($error_shadow_color,.25);
 		}
 	  }
 	  
 	  p {
-		color: #721c24;
+		color: $error_text_color;
 		font-size: 12px;
+		margin-top: 3px;
 	  }
 	}
   }
