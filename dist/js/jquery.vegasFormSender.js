@@ -30,36 +30,19 @@
 				action = options.action || form.attr('action') || location.href,
 				method = options.method || form.attr('method') || 'get',
 				fields = options.fields  ? options.fields : false,
-				mask = form.find('input[data-mask]') || false,
 				redirectSuccess = options.redirectSuccess || form.data('redirect-success') || false,
 				redirectError = options.redirectError  || form.data('redirect-error') || false;
-			
+
 			if (fields && typeof fields == 'function') {
 				fields = options.fields();
 			}
-			
-			if (mask && typeof $.fn.inputmask !== 'undefined') {
-				mask.each(function () {
-					let type = $(this).data('mask'),
-						params = {};
-					
-					if (type === 'phone') {
-						params.mask = "8(999) 999-99-99";
-					}
-					
-					$(this).inputmask(params);
-				});
-			} else if(typeof $.fn.inputmask === 'undefined' || !typeof $.fn.inputmask) {
-				console.error('Plugin InputMask not installed');
-			}
-			
+
 			let valid = true;
 			
 			form.on('submit', function () {
-				
 				let data = new FormData(this),
 					$required = $(this).find('[data-validate]');
-				
+
 				if ($required.length) {
 					let errors = required($required);
 					
@@ -67,7 +50,7 @@
 					
 					if (errors.length) valid = false;
 				}
-				
+
 				if (valid) {
 					if (fields) {
 						for(var name in fields) {
@@ -81,7 +64,7 @@
 							}
 						}
 					}
-					
+
 					$.ajax({
 						url: action,
 						method: method,
@@ -104,7 +87,7 @@
 						error: function (jqXHR, exception) {
 							let status = '',
 								msg = '';
-							
+
 							if (jqXHR.status === 0) {
 								msg = 'Not connect.\n Verify Network.';
 							} else if (jqXHR.status == 404) {
@@ -124,7 +107,7 @@
 							} else {
 								msg = 'Uncaught Error.\n' + jqXHR.responseText;
 							}
-							
+
 							if (redirectError) {
 								window.location.href = redirectError;
 							} else {
@@ -139,16 +122,31 @@
 			
 			function required($elements) {
 				let errors = [];
-				
+
 				$elements.each(function () {
 					let $el = $(this);
 					
 					if ($el.val() === '') {
 						errors.push($el);
+					} else {
+						var type = $el.attr('type');
+						
+						if (type === 'email' && !validateEmail(type)) {
+							errors.push($el);
+						}
+
+						if ($el.attr('data-validate') === 'password') {
+						
+						}
 					}
 				});
 				
 				return errors;
+			}
+			
+			function validateEmail(email) {
+				var pattern  = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				return pattern .test(String(email).toLowerCase());
 			}
 		});
 		
