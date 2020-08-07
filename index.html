@@ -31,7 +31,7 @@
 		</div>
 		
 		<div class="content">
-			<form action="/php/send.php" method="post" data-vgFormSender>
+			<form action="/php/send.php" method="post" data-vgFormSender data-compare="block" data-json-parse="true">
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
@@ -42,31 +42,31 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="user_surname">Ваша фамилия</label>
-							<input type="text" name="user_surname" id="user_surname" class="form-control" data-validate>
+							<input type="text" name="user_surname" id="user_surname" class="form-control">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="user_email">Ваш Email</label>
-							<input type="text" name="user_email" id="user_email" class="form-control" data-validate="email">
+							<input type="text" name="user_email" id="user_email" class="form-control">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="user_phone">Ваш телефон [ru]</label>
-							<input type="text" name="user_phone" id="user_phone" data-mask="phone" data-mask-complete="true" class="form-control" data-validate>
+							<input type="text" name="user_phone" id="user_phone" data-mask="phone" data-mask-complete="true" class="form-control">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="user_password">Новый пароль</label>
-							<input type="password" name="user_password" id="user_password" class="form-control" data-validate="password">
+							<input type="password" name="user_password" id="user_password" class="form-control">
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="user_re_password">Повторите пароль</label>
-							<input type="password" name="user_re_password" id="user_re_password" class="form-control" data-validate="password">
+							<input type="password" name="user_re_password" id="user_re_password" class="form-control">
 						</div>
 					</div>
 				</div>

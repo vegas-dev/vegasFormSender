@@ -1,10 +1,5 @@
 window.ValidateFormSender = {
-	phrases: {
-		empty: 'Это обязательное поле',
-		email: 'Вы ввели не верный email адрес',
-		password: 'Введенные пароли не сопадают'
-	},
-	arrange: function (errors, form) {
+	init: function (errors, form, params) {
 		ValidateFormSender.removeError(form.find('.vg-form-sender__selector'));
 
 		$.each(errors, function (i, arr) {
@@ -14,7 +9,7 @@ window.ValidateFormSender = {
 						$selector = $self.closest('.vg-form-sender__selector');
 
 					$selector.addClass('error');
-					$selector.append('<p>' + ValidateFormSender.phrases[i] + '</p>');
+					$selector.append('<p>' + LangFormSender[params.lang].validate[i] + '</p>');
 					ValidateFormSender.setValue($self, $selector)
 				});
 			}

@@ -17,23 +17,28 @@
 				method = options.method || form.attr('method') || 'get',
 				fields = options.fields ? options.fields : false,
 				redirectSuccess = options.redirectSuccess || form.data('redirect-success') || false,
-				redirectError = options.redirectError || form.data('redirect-error') || false;
+				redirectError = options.redirectError || form.data('redirect-error') || false,
+				lang = options.lang || form.data('lang') || 'ru',
+				jsonParse = options.jsonParse || form.data('json-parse') || false;
 
 			if (fields && typeof fields == 'function') {
 				fields = options.fields();
 			}
 
-			var valid = true;
+			var params = {
+				lang: lang
+			};
 
 			form.on('submit', function () {
 
 				var data = new FormData(this),
-					$required = $(this).find('[data-validate]');
+					$required = $(this).find('[data-validate]'),
+					valid = true;
 
 				if ($required.length) {
 					var errors = required($required);
 
-					options.validate.call(this, form, errors);
+					options.validate.call(this, form, params, errors);
 
 					if (errors.empty.length || errors.email.length || errors.password.length) valid = false;
 				}
@@ -62,15 +67,21 @@
 						contentType: false,
 						processData: false,
 						beforeSend: function () {
-							options.beforeSend.call(this, form);
+							options.beforeSend.call(this, form, params);
 						},
 						success: function (data) {
-							var obj = data;
+							var obj;
+
+							if (jsonParse) {
+								obj = JSON.parse(data);
+							} else {
+								obj = data;
+							}
 
 							if (redirectSuccess) {
 								window.location.href = redirectSuccess;
 							} else {
-								options.success.call(this, obj, form);
+								options.success.call(this, obj, form, params);
 							}
 						},
 						error: function (jqXHR, exception) {
@@ -82,8 +93,12 @@
 							} else {
 								msg = json.message || json.msg;
 							}
-
-							options.error.call(this, msg, form);
+							
+							if (redirectError) {
+								window.location.href = redirectError;
+							} else {
+								options.error.call(this, msg, form, params);
+							}
 						}
 					});
 				}

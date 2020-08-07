@@ -2,17 +2,17 @@ $(document).ready(function () {
 	var $forms = $('[data-vgFormSender]');
 	
 	$forms.vegasFormSender({
-		beforeSend: function (form) {
-			AlertFormSender.Action.beforeSend(form);
+		beforeSend: function (form, params) {
+			AlertFormSender.Action.beforeSend(form, params);
 		},
-		success: function (data, form) {
-			AlertFormSender.Action.success(data.msg, form);
+		success: function (data, form, params) {
+			AlertFormSender.Action.success(data.msg, form, params);
 		},
-		error: function (msg, form) {
-			AlertFormSender.Action.error(msg, form);
+		error: function (msg, form, params) {
+			AlertFormSender.Action.error(msg, form, params);
 		},
-		validate: function (form, errors) {
-			ValidateFormSender.arrange(errors, form);
+		validate: function (form, params, errors) {
+			ValidateFormSender.init(errors, form, params);
 		}
 	});
 
