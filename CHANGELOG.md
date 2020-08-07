@@ -1,0 +1,2 @@
+# VEGAS-FORM-SENDER 1.0.0 (JULY 27, 2020)
+* Init release
