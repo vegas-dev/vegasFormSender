@@ -12,7 +12,7 @@ $(document).ready(function () {
 			AlertFormSender.Action.error(msg, form);
 		},
 		validate: function (form, errors) {
-			ValidateFormVegas.init(errors, form);
+			ValidateFormSender.arrange(errors, form);
 		}
 	});
 
