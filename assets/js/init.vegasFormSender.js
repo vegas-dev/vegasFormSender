@@ -28,15 +28,8 @@ $(document).ready(function () {
 	}
 
 	$forms.each(function () {
-		var $_form = $(this);
-		var $inputs = $_form.find('input'),
+		var $_form = $(this),
 			$mask = $_form.find('input[data-mask]');
-
-		$_form.addClass('vg-form-sender');
-
-		$inputs.each(function () {
-			$(this).parent('div').addClass('vg-form-sender__selector');
-		});
 		
 		if (typeof $.fn.inputmask !== 'undefined') {
 			$mask.each(function () {

@@ -9,7 +9,7 @@
 	  	color: $error_text_color;
 	  }
 
-	  input {
+	  input, select, textarea {
 		background-color: $error_bg_color;
 		border-color: $error_border_color;
 		color: $error_text_color;

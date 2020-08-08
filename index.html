@@ -69,6 +69,61 @@
 							<input type="password" name="user_re_password" id="user_re_password" class="form-control">
 						</div>
 					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="user_country">Выберите страну</label>
+							<select name="user_country" id="user_country" class="form-control" data-validate>
+								<option>Не выбрано</option>
+								<option value="1">Россия</option>
+								<option value="2">Беларусь</option>
+								<option value="3">Украина</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="user_fruit">Выберите фрукты</label>
+							<select name="user_fruit" id="user_fruit" class="form-control" multiple data-validate>
+								<option value="1">Ананас</option>
+								<option value="2">Апельсин</option>
+								<option value="3">Манадрин</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<h6>Ваш пол</h6>
+							
+							<label for="user_male">Мужской</label>
+							<input type="radio" name="user_sex" id="user_male" data-validate>
+							
+							<label for="user_woman">Женский</label>
+							<input type="radio" name="user_sex" id="user_woman" data-validate>
+							
+							<label for="user_trans">Не определен</label>
+							<input type="radio" name="user_sex" id="user_trans" data-validate>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<h6>Ваш возраст</h6>
+							
+							<label for="user_young">от 0 - 18 лет</label>
+							<input type="radio" name="user_old" id="user_young" data-validate>
+							
+							<label for="user_middle">от 19 - 35 лет</label>
+							<input type="radio" name="user_old" id="user_middle" data-validate>
+							
+							<label for="user_oldest">от 35 и старше</label>
+							<input type="radio" name="user_old" id="user_oldest" data-validate>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="user_rules">Я соглашаюсь с условиями</label>
+							<input type="checkbox" name="user_rules" id="user_rules" data-validate>
+						</div>
+					</div>
 				</div>
 				
 				<div class="form-group">
@@ -88,9 +143,5 @@
 <script src="./demo/js/jquery.inputmask.js"></script>
 
 <script src="./dist/js/vegasformsender.min.js"></script>
-
-<script>
-	var VEGASFORMSENDER_INIT = false;
-</script>
 </body>
 </html>

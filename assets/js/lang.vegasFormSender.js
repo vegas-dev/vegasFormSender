@@ -10,7 +10,10 @@ window.LangFormSender = {
 		validate: {
 			empty: 'Это обязательное поле',
 			email: 'Вы ввели не верный email адрес',
-			password: 'Введенные пароли не совпадают'
+			password: 'Введенные пароли не совпадают',
+			checkbox: 'Чтобы продлолжить, установите этот флажок',
+			radio: 'Выберите один из вариантов',
+			select: 'Выберите вариант из списка'
 		}
 	},
 	en: {
@@ -24,7 +27,10 @@ window.LangFormSender = {
 		validate: {
 			empty: 'This is a required field',
 			email: 'You entered an invalid email address',
-			password: 'The passwords entered do not match'
+			password: 'The passwords entered do not match',
+			checkbox: 'Check this box to continue',
+			radio: 'Choose one of the options',
+			select: 'Choose an option from the list'
 		}
 	}
 };

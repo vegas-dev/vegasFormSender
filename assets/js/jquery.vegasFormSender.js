@@ -28,6 +28,12 @@
 			var params = {
 				lang: lang
 			};
+			
+			form.addClass('vg-form-sender');
+			var $inputs = form.find('input, select, textarea');
+			$inputs.each(function () {
+				$(this).parent('div').addClass('vg-form-sender__selector');
+			});
 
 			form.on('submit', function () {
 
@@ -40,7 +46,7 @@
 
 					options.validate.call(this, form, params, errors);
 
-					if (errors.empty.length || errors.email.length || errors.password.length) valid = false;
+					if (errors.empty.length || errors.email.length || errors.password.length || errors.checkbox.length || errors.radio.length || errors.select.length) valid = false;
 				}
 
 				if (valid) {
@@ -110,7 +116,10 @@
 				var errors = {
 					'empty': [],
 					'email': [],
-					'password': []
+					'password': [],
+					'checkbox': [],
+					'select': [],
+					'radio': []
 				};
 
 				$elements.each(function () {
@@ -118,6 +127,19 @@
 
 					if ($el.val() === '') {
 						errors.empty.push($el);
+					} else if($el.attr('type') === 'checkbox' && !$el.is(':checked')) {
+						errors.checkbox.push($el);
+					} else if($el.attr('type') === 'radio') {
+						errors.radio.push($el);
+					} else if($el[0].tagName === 'SELECT') {
+						var multiple = $(this).attr('multiple');
+						
+						if (typeof multiple !== typeof undefined && multiple !== false) {
+							if (!$el.find('option:selected').length) errors.select.push($el);
+						} else {
+							var option = $el.find('option:selected').attr('value');
+							if (!option) errors.select.push($el);
+						}
 					} else {
 						var type = $el.data('validate');
 						
@@ -148,6 +170,57 @@
 					}
 				}
 
+				if (errors.radio.length) {
+					var equal = [],
+						$_el = [];
+					
+					$.each(errors.radio, function () {
+						equal.push($(this).attr('name'))
+					});
+					
+					equal = equal.filter(function(elem, pos,arr) {
+						return arr.indexOf(elem) === pos;
+					});
+
+					$.each(equal, function (i, name) {
+						$_el.push({
+							name: name,
+							self: []
+						});
+
+						$.each(errors.radio, function () {
+							var n = $(this).attr('name');
+
+							if ($_el[i].name === n) {
+								$_el[i].self.push($(this))
+							}
+						});
+					});
+
+					$.each($_el, function (i) {
+						var v = 0;
+
+						$.each($_el[i].self, function (n) {
+							var $_self = $(this);
+							
+							if (!$_self.is(':checked')) {
+								v++;
+							}
+						});
+						
+						if ($_el[i].self.length !== v) {
+							$_el[i].self = []
+						}
+					});
+
+					errors.radio = [];
+					$.each($_el, function (i) {
+						$.each($_el[i].self, function () {
+							errors.radio.push($(this));
+						});
+					});
+				}
+				
 				return errors;
 			}
 
