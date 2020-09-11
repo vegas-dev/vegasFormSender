@@ -16,7 +16,12 @@ $(document).ready(function () {
 				AlertFormSender.Action.beforeSend(form, params);
 			},
 			success: function (data, form, params) {
-				AlertFormSender.Action.success(data.msg, form, params);
+				if (data.error) {
+					AlertFormSender.Action.error(data.msg, form, params);
+				} else {
+					AlertFormSender.Action.success(data.msg, form, params);
+				}
+				
 			},
 			error: function (msg, form, params) {
 				AlertFormSender.Action.error(msg, form, params);
