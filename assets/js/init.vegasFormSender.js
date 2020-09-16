@@ -36,14 +36,20 @@ $(document).ready(function () {
 		var $_form = $(this),
 			$mask = $_form.find('input[data-mask]');
 		
-		if (typeof $.fn.inputmask !== 'undefined') {
+		if (typeof $.fn.inputmask !== 'undefined' && $mask.length) {
 			$mask.each(function () {
 				var $_self = $(this),
 					type = $_self.data('mask'),
 					inComplete = $_self.data('mask-complete') || false,
+					focus = $_self.data('mask-focus') || false,
 					params = {
 						'clearIncomplete': inComplete
 					};
+				
+				if (focus) {
+					params.showMaskOnFocus = true;
+					params.showMaskOnHover = false;
+				}
 				
 				if(type !== '' && type !== 'undefined') {
 					if (type === 'phone') {

@@ -1,6 +1,6 @@
 {
   "name": "vgformsender",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "author": {
     "name": "Vegas Studio",
     "url": "https://vegas-dev.com",
@@ -38,5 +38,8 @@
     "watch:css": "onchange \"assets/scss\" -- run-s build:css",
     "watch:js": "onchange \"assets/js\" -- run-s build:js",
     "watch": "run-p watch:*"
+  },
+  "dependencies": {
+    "inputmask": "^5.0.5"
   }
 }
