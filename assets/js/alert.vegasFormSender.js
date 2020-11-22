@@ -6,7 +6,7 @@ window.AlertFormSender = {
 	},
 
 	modal: function (alert) {
-		var svg;
+		let svg;
 		
 		if (alert === 'success') {
 			svg = AlertFormSender.Svg.success
@@ -14,7 +14,7 @@ window.AlertFormSender = {
 			svg = AlertFormSender.Svg.error
 		}
 		
-		var modal = '<div class="modal fade vg-form-sender__modal" id="modal-'+ alert +'" tabindex="-1" role="dialog" aria-labelledby="modal-'+ alert +'" aria-hidden="true">' +
+		let modal = '<div class="modal fade vg-form-sender__modal" id="modal-'+ alert +'" tabindex="-1" role="dialog" aria-labelledby="modal-'+ alert +'" aria-hidden="true">' +
 			'    <div class="modal-dialog" role="document">' +
 			'        <div class="modal-content">' +
 			'            <button type="button" class="modal-close" data-dismiss="modal" aria-label="Close">' + AlertFormSender.Svg.cross + '</button>' +
@@ -33,7 +33,7 @@ window.AlertFormSender = {
 	},
 
 	block: function (alert, form) {
-		var svg;
+		let svg;
 		
 		if (alert === 'success') {
 			svg = AlertFormSender.Svg.success
@@ -41,7 +41,7 @@ window.AlertFormSender = {
 			svg = AlertFormSender.Svg.error
 		}
 		
-		var block = '<div class="vg-form-sender__block ' + alert + '">' +
+		let block = '<div class="vg-form-sender__block ' + alert + '">' +
 			'<div class="icon">' + svg + '</div>' +
 			'<div class="content">' +
 			'   <div class="title"></div>' +
@@ -54,7 +54,7 @@ window.AlertFormSender = {
 
 	Action: {
 		draw: function (form) {
-			var elCompare = form.data('compare') || 'modal';
+			let elCompare = form.data('compare') || 'modal';
 
 			if (elCompare === 'modal') {
 				AlertFormSender.modal('success');
@@ -83,7 +83,7 @@ window.AlertFormSender = {
 		},
 
 		btn: function (form, disabled, params) {
-			var $btn = form.find('[type=submit]'), text;
+			let $btn = form.find('[type=submit]'), text;
 			
 			if (disabled) {
 				text = $btn.data('text-send') || LangFormSender[params.lang].alert.text_send
@@ -95,7 +95,7 @@ window.AlertFormSender = {
 		},
 
 		compare: function (msg, form, params, alert) {
-			var $btn = form.find('[type=submit]'),
+			let $btn = form.find('[type=submit]'),
 				elCompare = form.data('compare') || 'modal',
 				title;
 
@@ -106,12 +106,12 @@ window.AlertFormSender = {
 			}
 
 			if (elCompare === 'modal') {
-				var $modal = $('#modal-' + alert);
+				let $modal = $('#modal-' + alert);
 				$('.modal').modal('hide');
 				AlertFormSender.text(msg, title, $modal);
 				$modal.modal('show');
 			} else if(elCompare === 'block') {
-				var $block = $('.vg-form-sender__block.' + alert);
+				let $block = $('.vg-form-sender__block.' + alert);
 				$block.addClass('show');
 				AlertFormSender.text(msg, title, $block);
 			}
