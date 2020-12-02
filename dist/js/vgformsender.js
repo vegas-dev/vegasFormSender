@@ -196,9 +196,11 @@ $(document).ready(function () {
             processData: false,
             beforeSend: function () {
               options.beforeSend.call(this, $form, params);
+              $form.trigger('before-send');
             },
             success: function (data) {
               let obj;
+              $form.trigger('submit-success');
 
               if (settings.jsonParse) {
                 obj = JSON.parse(data);
@@ -215,6 +217,7 @@ $(document).ready(function () {
             error: function (jqXHR, exception) {
               let json = JSON.parse(jqXHR.responseText);
               let msg;
+              $form.trigger('submit-error');
 
               if (json.errors) {
                 msg = json.errors[Object.keys(json.errors)[0]][0];
