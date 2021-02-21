@@ -63,7 +63,7 @@ window.AlertFormSender = {
 		draw: function (form) {
 			let elCompare = form.data('compare') || 'modal';
 
-			AlertFormSender.boot_version = form.data('bootstrap-version') || 4;
+			AlertFormSender.boot_version = form.data('bootstrap-version') || 5;
 
 			if (elCompare === 'modal') {
 				AlertFormSender.modal('success');
