@@ -171,15 +171,23 @@ $(document).ready(function () {
       $form.on('submit', function () {
         let data = new FormData(this),
             $required = $(this).find('[data-validate]'),
+            $emails = $(this).find('[type=email]'),
+            errors = {},
             valid = true;
 
+        if ($emails.length) {
+          errors = required($emails);
+          if (errors.email.length) valid = false;
+        }
+
         if ($required.length) {
-          let errors = required($required);
-          options.validate.call(this, $form, params, errors);
+          errors = required($required);
           if (errors.empty.length || errors.email.length || errors.password.length || errors.checkbox.length || errors.radio.length || errors.select.length) valid = false;
         }
 
-        if (valid) {
+        if (!valid) {
+          options.validate.call(this, $form, params, errors);
+        } else {
           if (settings.fields) {
             for (let name in settings.fields) {
               if (typeof settings.fields[name] === 'object') {
@@ -276,7 +284,7 @@ $(document).ready(function () {
         } else {
           let type = $el.data('validate');
 
-          if (type === 'email' && !validateEmail($el.val())) {
+          if ((type === 'email' || $el.attr('type') === 'email') && !validateEmail($el.val())) {
             errors.email.push($el);
           }
 
@@ -351,7 +359,7 @@ $(document).ready(function () {
     }
 
     function validateEmail(email) {
-      let pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      let pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
       return pattern.test(String(email).toLowerCase());
     }
   };
@@ -368,7 +376,7 @@ window.LangFormSender = {
     validate: {
       empty: 'Это обязательное поле',
       email: 'Вы ввели не верный email адрес',
-      password: 'Введенные пароли не совпадают',
+      password: 'Веденные пароли не совпадают',
       checkbox: 'Чтобы продлолжить, установите этот флажок',
       radio: 'Выберите один из вариантов',
       select: 'Выберите вариант из списка'

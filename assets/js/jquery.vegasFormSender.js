@@ -37,17 +37,25 @@
 			$form.on('submit', function () {
 				let data = new FormData(this),
 					$required = $(this).find('[data-validate]'),
+					$emails = $(this).find('[type=email]'),
+					errors = {},
 					valid = true;
 
-				if ($required.length) {
-					let errors = required($required);
+				if($emails.length) {
+					errors = required($emails);
 
-					options.validate.call(this, $form, params, errors);
+					if (errors.email.length) valid = false;
+				}
+
+				if ($required.length) {
+					errors = required($required);
 
 					if (errors.empty.length || errors.email.length || errors.password.length || errors.checkbox.length || errors.radio.length || errors.select.length) valid = false;
 				}
 
-				if (valid) {
+				if (!valid) {
+					options.validate.call(this, $form, params, errors);
+				} else {
 					if (settings.fields) {
 						for (let name in settings.fields) {
 							if (typeof settings.fields[name] === 'object') {
@@ -147,7 +155,7 @@
 				} else {
 					let type = $el.data('validate');
 
-					if (type === 'email' && !validateEmail($el.val())) {
+					if ((type === 'email' || $el.attr('type') === 'email' ) && !validateEmail($el.val())) {
 						errors.email.push($el);
 					}
 
@@ -229,8 +237,8 @@
 		}
 
 		function validateEmail(email) {
-			let pattern  = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			return pattern .test(String(email).toLowerCase());
+			let pattern  = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+			return pattern.test(String(email).toLowerCase());
 		}
 	};
 })(jQuery);
